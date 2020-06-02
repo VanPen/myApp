@@ -43,7 +43,7 @@ function HomeStackScreen() {
 function SearchStackScreen() {
     return (
         <SettingsStack.Navigator>
-            <SettingsStack.Screen name="Search" component={Profile} />
+            <SettingsStack.Screen name="Maps" component={Profile} />
         </SettingsStack.Navigator>
     );
 }
@@ -66,14 +66,14 @@ export default function App() {
               options={{ tabBarLabel: 'Home' }}
           />
             <Tab.Screen
-                name="Search"
+                name="Maps"
                 component={SearchStackScreen}
-                options={{ tabBarLabel: 'Profile' }}
+                options={{ tabBarLabel: 'Maps' }}
             />
           <Tab.Screen
-              name="Settings"
+              name="Test"
               component={SettingsStackScreen}
-              options={{ tabBarLabel: 'Feed' }}
+              options={{ tabBarLabel: 'Settings' }}
           />
         </Tab.Navigator>
       </NavigationContainer>

@@ -3,14 +3,13 @@ import { Platform, Text, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import MapView , {Marker} from 'react-native-maps';
+import Data from '../assets/data/paris'
 
 export default function Profile() {
-        const haha = {
-        };
 
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
-
+    let restaurant = Data;
     useEffect(() => {
         if (Platform.OS === 'android' && !Constants.isDevice) {
             setErrorMsg(
@@ -28,7 +27,6 @@ export default function Profile() {
                 if (status !== 'granted') {
                     setErrorMsg('Permission to access location was denied');
                 }
-
                 let location = await Location.getCurrentPositionAsync({});
                 setLocation(location);
             })();
@@ -36,21 +34,35 @@ export default function Profile() {
     });
 
     let text = 'Waiting..';
+    let lat = '';
+    let long ='';
     if (errorMsg) {
         text = errorMsg;
     } else if (location) {
         text = JSON.stringify(location)
         const coordinate = JSON.parse(text)
-        console.log(coordinate);
-        haha.latitude = coordinate.coords.latitude
-        haha.longitude = coordinate.coords.longitude
-        console.log(haha)
+        lat = coordinate.coords.latitude
+        long = coordinate.coords.longitude
     }
 
     return (
-        <View style={styles.container}>
-            <MapView style={styles.map}/>
-        </View>
+            <View style={styles.container}>
+                <MapView
+                    style={styles.map}
+                >
+                    <MapView.Marker
+                        title="Greenwich"
+                        coordinate={{
+                            latitude: 48.8666807,
+                            longitude: 2.399608,
+                        }}
+                        calloutOffset={{
+                            x: -50,
+                            y: -50,
+                        }}
+                    />
+                </MapView>
+            </View>
     );
 }
 
